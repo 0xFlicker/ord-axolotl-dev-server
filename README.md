@@ -64,6 +64,8 @@ yarn dev
 
 and open up http://localhost:6969 in a browser
 
+![image](https://github.com/0xFlicker/ord-axolotl-dev-server/assets/97764360/0c4af027-92a8-42f6-84e5-2033957296b3)
+
 ## Notes
 
 The [metadata.json](./metadata.json) file can be modified to update the metadata the will be used.
