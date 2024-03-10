@@ -12,7 +12,7 @@ You will need a local bitcoin regtest and ord indexer running
 Create a starter .bitcoin.conf:
 
 ```bash
-mkdir -p ~/.bitcoin/bitcoin.conf
+mkdir -p ~/.bitcoin
 cat << EOF > ~/.bitcoin/bitcoin.conf
 [regtest]
   txindex=1
