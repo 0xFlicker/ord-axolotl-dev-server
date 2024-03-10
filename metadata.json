@@ -1,0 +1,10 @@
+{
+    "fruit": "apple",
+    "size": "large",
+    "color": "red",
+    "nested": {
+        "key": "value"
+    },
+    "tokenId": 1,
+    "revealedAt": 100
+}

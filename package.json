@@ -1,0 +1,30 @@
+{
+  "name": "ord-recursive-dev",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "build:script": "esbuild --watch=forever --alias:inscriptions/index.js=./tmp/inscriptions.js --bundle --platform=browser --target=es2022 --outfile=content/script.js --tree-shaking=true --minify src/ordinal.ts",
+    "server": "node server.js",
+    "dev": "yarn build:script & yarn server"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.8.2",
+    "cbor": "^9.0.2",
+    "file-type": "^19.0.0",
+    "glob": "^10.3.10",
+    "hono": "^4.0.10",
+    "ramda": "^0.29.1",
+    "yaml": "^2.4.1"
+  },
+  "devDependencies": {
+    "@types/html-minifier-terser": "^7.0.2",
+    "esbuild": "^0.20.1",
+    "handlebars": "^4.7.8",
+    "html-minifier-terser": "^7.2.0",
+    "prettier": "^3.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.2"
+  }
+}
