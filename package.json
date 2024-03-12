@@ -7,7 +7,7 @@
   "scripts": {
     "build:script": "esbuild --watch=forever --alias:inscriptions/index.js=./tmp/inscriptions.js --bundle --platform=browser --target=es2022 --outfile=content/script.js --tree-shaking=true --minify src/ordinal.ts",
     "server": "node server.js",
-    "dev": "yarn build:script & yarn server"
+    "dev": "npm run build:script & npm run server"
   },
   "dependencies": {
     "@hono/node-server": "^1.8.2",
