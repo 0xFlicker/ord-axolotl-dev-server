@@ -81,3 +81,5 @@ Files can be updated in src folder and they will rebuild.
 You will need to reload the browser to see the updates.
 
 Additional content can be added to the [content](./content/) folder if needed.
+
+Change the [100 blockhash](./r/blockhash/100) file to a to a new random blockhash or the tokenId in [metada.json](./metadata.json) if you want a new token to generate.
