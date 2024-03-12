@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 RECEIVE_ADDRESS=$(ord --regtest wallet --server-url http://127.0.0.1:5000 receive | jq -r '.address')
 
@@ -16,6 +17,6 @@ mkdir -p tmp
 echo '{"cborInscriptionId": "'$CBOR_INSCRIPTION_ID'", "layerParentInscriptionId": "'$PARENT_INSCRIPTION_ID'"}' > tmp/inscription-ids.json
 
 
-bitcoin-cli -regtest generatetoaddress 1 ${RECEIVE_ADDRESS} > /dev/null
+bitcoin-cli -regtest generatetoaddress 1 (ord --regtest wallet receive | jq -r '.address')
 node scripts/prepare-batch.js
 bitcoin-cli -regtest generatetoaddress 1 ${RECEIVE_ADDRESS} > /dev/null

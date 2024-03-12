@@ -49,12 +49,14 @@ app.get("/", async () => {
   }
 });
 
-app.get("/content/:inscriptionId", async ({ req }) => {
-  const inscriptionId = req.param("inscriptionId");
-  const fileExistsInContent = await fileExists(`./content/${inscriptionId}`);
+app.get("/content/*", async ({ req }) => {
+  const fileExistsInContent = await fileExists(
+    `.${decodeURIComponent(req.path)}`,
+  );
   if (fileExistsInContent) {
-    const content = await readFile(`./content/${inscriptionId}`);
-    const type = await fileTypeFromFile(`./content/${inscriptionId}`);
+    console.log(`Fetching local file: .${decodeURIComponent(req.path)}`);
+    const content = await readFile(`.${decodeURIComponent(req.path)}`);
+    const type = await fileTypeFromFile(`.${decodeURIComponent(req.path)}`);
     return new Response(content, {
       headers: {
         "Content-Type": type ? type.mime : "application/octet-stream",
@@ -77,27 +79,37 @@ app.get("/content/:inscriptionId", async ({ req }) => {
 });
 
 app.get("/r/metadata/:inscriptionId", async ({ req }) => {
+  async function fallback() {
+    console.log("Metadata not found, returning local metadata");
+    const content = await readFile("./metadata.json", "utf8");
+    const metadata = JSON.parse(content);
+    const c = cborEncode(metadata);
+    return new Response(JSON.stringify(c.toString("hex")), {
+      headers: { "Content-Type": "application/json" },
+    });
+  }
   try {
     const response = await fetch(`${host}${req.path}`);
-    if (!response.ok && response.status === 400) {
-      console.log("Metadata not found, returning local metadata");
-      const content = await readFile("./metadata.json", "utf8");
-      const metadata = JSON.parse(content);
-      const c = cborEncode(metadata);
-      return new Response(JSON.stringify(c.toString("hex")), {
-        headers: { "Content-Type": "application/json" },
-      });
+    if (!response.ok) {
+      return fallback();
     }
     const res = await response.json();
     return new Response(JSON.stringify(res), {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    return new Response(error.message, { status: 500 });
+    return fallback();
   }
 });
 
 app.get("/r/*", async ({ req }) => {
+  async function fallback() {
+    console.log("Recursive endpoint not found, returning local metadata");
+    const content = await readFile(`.${req.path}`, "utf8");
+    return new Response(content, {
+      headers: { "Content-Type": "application/json" },
+    });
+  }
   try {
     const response = await fetch(`${host}${req.path}`);
     if (!response.ok) {
@@ -108,7 +120,7 @@ app.get("/r/*", async ({ req }) => {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    return new Response(error.message, { status: 500 });
+    return fallback();
   }
 });
 

@@ -1,6 +1,5 @@
 import { renderHtmlCanvas } from "./canvas/core.js";
 import { operations, IAttributeMetadata } from "./generate.js";
-import inscriptionMappings from "inscriptions/index.js";
 
 declare global {
   interface Window {
@@ -26,8 +25,7 @@ async function main() {
   const canvas = document.querySelector("canvas#main") as HTMLCanvasElement;
 
   function findSrcForPath(path: string) {
-    const result = inscriptionMappings[path] ?? path;
-    return `/content/${result}`;
+    return `/content/assets/${path}`;
   }
   let currentMetadata: IAttributeMetadata | null = null;
   async function renderLayers(seedBytes: Uint8Array) {

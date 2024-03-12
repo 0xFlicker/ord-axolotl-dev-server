@@ -1,8 +1,14 @@
 # Axolotl Ordinal Dev Server
 
-Creates a local environment for testing and developing recursive HTML ordinals
+Creates a local environment for testing and developing recursive HTML ordinals.
+
+Just want to get started? jump ahead to [Developing](#developing)
 
 ## Pre-reqs
+
+If you want to have a local ordinal regtest to do real inscriptions do, then read on.
+
+This is not required. The project here will work as-is w/o any backing ord server.
 
 You will need a local bitcoin regtest and ord indexer running
 
