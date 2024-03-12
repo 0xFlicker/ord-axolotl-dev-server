@@ -18,7 +18,7 @@ You will need a local bitcoin regtest and ord indexer running
 Create a starter .bitcoin.conf:
 
 ```bash
-mkdir -p ~/.bitcoin/bitcoin.conf
+mkdir -p ~/.bitcoin
 cat << EOF > ~/.bitcoin/bitcoin.conf
 [regtest]
   txindex=1
@@ -69,6 +69,8 @@ yarn dev
 ```
 
 and open up http://localhost:6969 in a browser
+
+![image](https://github.com/0xFlicker/ord-axolotl-dev-server/assets/97764360/0c4af027-92a8-42f6-84e5-2033957296b3)
 
 ## Notes
 
